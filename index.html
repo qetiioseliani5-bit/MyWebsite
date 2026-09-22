@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UsefulBox — სასარგებლო ხელსაწყოები</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#08090d;
+    --card:#11131a;
+    --card2:#181b24;
+    --text:#ffffff;
+    --muted:#9297a5;
+    --border:#282c38;
+    --accent:#7c5cff;
+    --accent2:#6244e8;
+    --danger:#ff4d67;
+    --success:#35d07f;
+}
+
+body.light{
+    --bg:#f4f5f9;
+    --card:#ffffff;
+    --card2:#f0f1f5;
+    --text:#171820;
+    --muted:#686d7a;
+    --border:#dfe1e8;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    transition:.3s;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+/* HEADER */
+
+header{
+    height:72px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    color:var(--accent);
+}
+
+.logo span{
+    color:var(--text);
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.theme-btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--card2);
+    color:var(--text);
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:70px 20px 50px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:18px;
+}
+
+.hero h1 span{
+    color:var(--accent);
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.7;
+}
+
+/* SEARCH */
+
+.search-box{
+    max-width:700px;
+    margin:0 auto 45px;
+    padding:0 20px;
+}
+
+.search{
+    width:100%;
+    padding:17px 20px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    outline:none;
+    font-size:16px;
+}
+
+.search:focus{
+    border-color:var(--accent);
+}
+
+/* TOOLS */
+
+.container{
+    width:88%;
+    max-width:1250px;
+    margin:auto;
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    padding-bottom:60px;
+}
+
+.tool-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.tool-card:hover{
+    transform:translateY(-5px);
+    border-color:var(--accent);
+}
+
+.tool-icon{
+    font-size:32px;
+    margin-bottom:18px;
+}
+
+.tool-card h3{
+    margin-bottom:9px;
+}
+
+.tool-card p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:1000;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:30px;
+    cursor:pointer;
+}
+
+.modal-title{
+    font-size:25px;
+    margin-bottom:25px;
+    padding-right:35px;
+}
+
+/* FORM */
+
+.input{
+    width:100%;
+    padding:13px;
+    margin:7px 0 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card2);
+    color:var(--text);
+    outline:none;
+}
+
+.input:focus{
+    border-color:var(--accent);
+}
+
+.btn{
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:var(--accent);
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn:hover{
+    background:var(--accent2);
+}
+
+.btn.red{
+    background:var(--danger);
+}
+
+.btn.green{
+    background:var(--success);
+    color:#06140c;
+}
+
+.result{
+    margin-top:18px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:17px;
+    min-height:50px;
+    line-height:1.6;
+}
+
+.big-result{
+    font-size:28px;
+    font-weight:bold;
+    color:var(--accent);
+    text-align:center;
+    padding:25px;
+}
+
+/* CALCULATOR */
+
+.calc-display{
+    width:100%;
+    height:70px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--card2);
+    color:var(--text);
+    font-size:28px;
+    text-align:right;
+    padding:10px 15px;
+    margin-bottom:12px;
+}
+
+.calc-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.calc-grid button{
+    height:55px;
+    border:none;
+    border-radius:10px;
+    background:var(--card2);
+    color:var(--text);
+    cursor:pointer;
+    font-size:18px;
+}
+
+.calc-grid button:hover{
+    background:var(--accent);
+    color:white;
+}
+
+.calc-grid .operator{
+    color:#b8aaff;
+}
+
+/* POMODORO */
+
+.timer{
+    text-align:center;
+}
+
+.timer-time{
+    font-size:65px;
+    font-weight:bold;
+    margin:20px 0;
+    color:var(--accent);
+}
+
+.timer-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+/* TODO */
+
+.todo-add{
+    display:flex;
+    gap:8px;
+}
+
+.todo-add input{
+    flex:1;
+}
+
+.todo-list{
+    margin-top:18px;
+}
+
+.todo-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:13px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    margin-bottom:8px;
+}
+
+.todo-left{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.todo-item.done span{
+    text-decoration:line-through;
+    color:var(--muted);
+}
+
+.delete-todo{
+    border:none;
+    background:none;
+    color:var(--danger);
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* EXPENSE */
+
+.expense-list{
+    margin-top:18px;
+}
+
+.expense{
+    display:flex;
+    justify-content:space-between;
+    padding:12px;
+    background:var(--card2);
+    border-radius:9px;
+    margin-bottom:7px;
+}
+
+.expense-total{
+    font-size:25px;
+    color:var(--success);
+    margin-bottom:15px;
+}
+
+/* COLOR */
+
+.color-preview{
+    height:150px;
+    border-radius:15px;
+    margin-bottom:18px;
+    background:#7c5cff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+/* PASSWORD */
+
+.password-box{
+    display:flex;
+    gap:8px;
+}
+
+.password-box input{
+    flex:1;
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid var(--border);
+    padding:30px;
+    text-align:center;
+    color:var(--muted);
+}
+
+/* NO RESULTS */
+
+.no-results{
+    text-align:center;
+    color:var(--muted);
+    padding:40px;
+    display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .tools{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:0 5%;
+    }
+
+    .hero{
+        padding:50px 15px 35px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .tools{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        width:92%;
+    }
+
+    .modal-box{
+        padding:20px;
+    }
+
+    .timer-time{
+        font-size:50px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+Useful<span>Box</span>
+</div>
+
+<div class="header-right">
+
+<button class="theme-btn" onclick="toggleTheme()" id="themeButton">
+🌙
+</button>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<h1>
+ყველაფერი <span>ერთ სივრცეში.</span>
+</h1>
+
+<p>
+UsefulBox არის მარტივი და უფასო ონლაინ ხელსაწყოების კრებული.
+გამოიყენე კალკულატორი, ტაიმერი, ხარჯების მენეჯერი,
+პაროლის გენერატორი და კიდევ ბევრი რამ.
+</p>
+
+</section>
+
+
+<div class="search-box">
+
+<input
+class="search"
+id="toolSearch"
+placeholder="🔎 მოძებნე ხელსაწყო..."
+onkeyup="searchTools()"
+>
+
+</div>
+
+
+<main class="container">
+
+<div class="tools" id="tools">
+
+
+<!-- CALCULATOR -->
+
+<div class="tool-card"
+data-name="კალკულატორი calculator"
+onclick="openTool('calculator')">
+
+<div class="tool-icon">🧮</div>
+
+<h3>კალკულატორი</h3>
+
+<p>
+სწრაფად გამოთვალე ნებისმიერი მათემატიკური მაგალითი.
+</p>
+
+</div>
+
+
+<!-- CURRENCY -->
+
+<div class="tool-card"
+data-name="ვალუტის გადამყვანი currency"
+onclick="openTool('currency')">
+
+<div class="tool-icon">💱</div>
+
+<h3>ვალუტის გადამყვანი</h3>
+
+<p>
+გადააკეთე თანხა სხვადასხვა ვალუტაში.
+</p>
+
+</div>
+
+
+<!-- UNITS -->
+
+<div class="tool-card"
+data-name="ერთეულების გადამყვანი units"
+onclick="openTool('units')">
+
+<div class="tool-icon">📏</div>
+
+<h3>ერთეულების გადამყვანი</h3>
+
+<p>
+კილომეტრი, მეტრი, კილოგრამი, გრამი და სხვა.
+</p>
+
+</div>
+
+
+<!-- POMODORO -->
+
+<div class="tool-card"
+data-name="pomodoro ტაიმერი სწავლა timer"
+onclick="openTool('pomodoro')">
+
+<div class="tool-icon">⏱️</div>
+
+<h3>Pomodoro</h3>
+
+<p>
+დაგეგმე სწავლის ან მუშაობის დრო.
+</p>
+
+</div>
+
+
+<!-- TODO -->
+
+<div class="tool-card"
+data-name="todo საქმეები დავალებები"
+onclick="openTool('todo')">
+
+<div class="tool-icon">✅</div>
+
+<h3>To-Do List</h3>
+
+<p>
+ჩაიწერე საქმეები და მონიშნე შესრულებული დავალებები.
+</p>
+
+</div>
+
+
+<!-- PASSWORD -->
+
+<div class="tool-card"
+data-name="password პაროლი generator"
+onclick="openTool('password')">
+
+<div class="tool-icon">🔐</div>
+
+<h3>პაროლის გენერატორი</h3>
+
+<p>
+შექმენი შემთხვევითი ძლიერი პაროლი.
+</p>
+
+</div>
+
+
+<!-- COLOR -->
+
+<div class="tool-card"
+data-name="ფერი color generator"
+onclick="openTool('color')">
+
+<div class="tool-icon">🎨</div>
+
+<h3>ფერის გენერატორი</h3>
+
+<p>
+დააგენერირე შემთხვევითი ფერი და მიიღე HEX კოდი.
+</p>
+
+</div>
+
+
+<!-- RANDOM -->
+
+<div class="tool-card"
+data-name="random შემთხვევითი რიცხვი"
+onclick="openTool('random')">
+
+<div class="tool-icon">🎲</div>
+
+<h3>Random Generator</h3>
+
+<p>
+დააგენერირე შემთხვევითი რიცხვი მითითებულ დიაპაზონში.
+</p>
+
+</div>
+
+
+<!-- AGE -->
+
+<div class="tool-card"
+data-name="ასაკი birthday age calculator"
+onclick="openTool('age')">
+
+<div class="tool-icon">🎂</div>
+
+<h3>ასაკის კალკულატორი</h3>
+
+<p>
+გაიგე რამდენი წლის, თვის და დღის ხარ.
+</p>
+
+</div>
+
+
+<!-- EXPENSE -->
+
+<div class="tool-card"
+data-name="ხარჯები ფული money expense"
+onclick="openTool('expense')">
+
+<div class="tool-icon">💰</div>
+
+<h3>ხარჯების მენეჯერი</h3>
+
+<p>
+ჩაიწერე ხარჯები და აკონტროლე დახარჯული თანხა.
+</p>
+
+</div>
+
+
+</div>
+
+<div class="no-results" id="noResults">
+ამ სახელით ხელსაწყო ვერ მოიძებნა.
+</div>
+
+</main>
+
+
+<footer>
+
+<p>© 2026 UsefulBox — მარტივი ხელსაწყოები ყველასთვის</p>
+
+</footer>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<button class="close" onclick="closeTool()">×</button>
+
+<div id="modalContent"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* THEME */
+
+function toggleTheme(){
+
+document.body.classList.toggle("light");
+
+let light=document.body.classList.contains("light");
+
+document.getElementById("themeButton").innerText=
+light ? "☀️" : "🌙";
+
+localStorage.setItem("theme",light ? "light":"dark");
+
+}
+
+if(localStorage.getItem("theme")==="light"){
+
+document.body.classList.add("light");
+
+document.getElementById("themeButton").innerText="☀️";
+
+}
+
+
+/* SEARCH */
+
+function searchTools(){
+
+let value=
+document.getElementById("toolSearch")
+.value
+.toLowerCase();
+
+let cards=
+document.querySelectorAll(".tool-card");
+
+let found=0;
+
+cards.forEach(card=>{
+
+let name=card.dataset.name.toLowerCase();
+
+if(name.includes(value)){
+
+card.style.display="block";
+found++;
+
+}else{
+
+card.style.display="none";
+
+}
+
+});
+
+document.getElementById("noResults").style.display=
+found===0 ? "block":"none";
+
+}
+
+
+/* MODAL */
+
+function openTool(type){
+
+let content="";
+
+
+/* CALCULATOR */
+
+if(type==="calculator"){
+
+content=`
+
+<h2 class="modal-title">🧮 კალკულატორი</h2>
+
+<input
+class="calc-display"
+id="calcDisplay"
+readonly
+>
+
+<div class="calc-grid">
+
+<button onclick="calcInput('7')">7</button>
+<button onclick="calcInput('8')">8</button>
+<button onclick="calcInput('9')">9</button>
+<button class="operator" onclick="calcInput('/')">÷</button>
+
+<button onclick="calcInput('4')">4</button>
+<button onclick="calcInput('5')">5</button>
+<button onclick="calcInput('6')">6</button>
+<button class="operator" onclick="calcInput('*')">×</button>
+
+<button onclick="calcInput('1')">1</button>
+<button onclick="calcInput('2')">2</button>
+<button onclick="calcInput('3')">3</button>
+<button class="operator" onclick="calcInput('-')">−</button>
+
+<button onclick="calcInput('0')">0</button>
+<button onclick="calcInput('.')">.</button>
+<button onclick="calculate()">=</button>
+<button class="operator" onclick="calcInput('+')">+</button>
+
+<button onclick="clearCalc()">C</button>
+
+</div>
+`;
+
+}
+
+
+/* CURRENCY */
+
+if(type==="currency"){
+
+content=`
+
+<h2 class="modal-title">💱 ვალუტის გადამყვანი</h2>
+
+<p style="color:var(--muted);margin-bottom:15px">
+სასწავლო/საორიენტაციო გადაყვანა. კურსები შეგიძლია შეცვალო.
+</p>
+
+<input
+class="input"
+id="currencyAmount"
+type="number"
+placeholder="თანხა"
+>
+
+<select class="input" id="currencyFrom">
+
+<option value="GEL">GEL — ლარი</option>
+<option value="USD">USD — დოლარი</option>
+<option value="EUR">EUR — ევრო</option>
+<option value="GBP">GBP — ფუნტი</option>
+
+</select>
+
+<select class="input" id="currencyTo">
+
+<option value="USD">USD — დოლარი</option>
+<option value="GEL">GEL — ლარი</option>
+<option value="EUR">EUR — ევრო</option>
+<option value="GBP">GBP — ფუნტი</option>
+
+</select>
+
+<button class="btn" onclick="convertCurrency()">
+გადაყვანა
+</button>
+
+<div class="result" id="currencyResult"></div>
+
+`;
+
+}
+
+
+/* UNITS */
+
+if(type==="units"){
+
+content=`
+
+<h2 class="modal-title">📏 ერთეულების გადამყვანი</h2>
+
+<input
+class="input"
+id="unitValue"
+type="number"
+placeholder="რიცხვი"
+>
+
+<select class="input" id="unitType">
+
+<option value="km-m">კილომეტრი → მეტრი</option>
+<option value="m-km">მეტრი → კილომეტრი</option>
+<option value="kg-g">კილოგრამი → გრამი</option>
+<option value="g-kg">გრამი → კილოგრამი</option>
+<option value="cm-m">სანტიმეტრი → მეტრი</option>
+<option value="m-cm">მეტრი → სანტიმეტრი</option>
+<option value="c-f">ცელსიუსი → ფარენჰეიტი</option>
+<option value="f-c">ფარენჰეიტი → ცელსიუსი</option>
+
+</select>
+
+<button class="btn" onclick="convertUnits()">
+გადაყვანა
+</button>
+
+<div class="result" id="unitResult"></div>
+
+`;
+
+}
+
+
+/* POMODORO */
+
+if(type==="pomodoro"){
+
+content=`
+
+<h2 class="modal-title">⏱️ Pomodoro Timer</h2>
+
+<div class="timer">
+
+<div class="timer-time" id="timer">
+25:00
+</div>
+
+<div class="timer-buttons">
+
+<button class="btn" onclick="startTimer()">
+დაწყება
+</button>
+
+<button class="btn" onclick="pauseTimer()">
+პაუზა
+</button>
+
+<button class="btn red" onclick="resetTimer()">
+თავიდან
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* TODO */
+
+if(type==="todo"){
+
+content=`
+
+<h2 class="modal-title">✅ To-Do List</h2>
+
+<div class="todo-add">
+
+<input
+class="input"
+id="todoInput"
+placeholder="რა უნდა გააკეთო?"
+>
+
+<button class="btn" onclick="addTodo()">
+დამატება
+</button>
+
+</div>
+
+<div class="todo-list" id="todoList"></div>
+
+`;
+
+}
+
+
+/* PASSWORD */
+
+if(type==="password"){
+
+content=`
+
+<h2 class="modal-title">🔐 პაროლის გენერატორი</h2>
+
+<label>სიგრძე</label>
+
+<input
+class="input"
+id="passwordLength"
+type="number"
+value="16"
+min="6"
+max="50"
+>
+
+<button class="btn" onclick="generatePassword()">
+გენერირება
+</button>
+
+<div class="password-box" style="margin-top:15px">
+
+<input
+class="input"
+id="generatedPassword"
+readonly
+placeholder="შენი პაროლი..."
+>
+
+<button class="btn" onclick="copyPassword()">
+კოპირება
+</button>
+
+</div>
+
+`;
+
+}
+
+
+/* COLOR */
+
+if(type==="color"){
+
+content=`
+
+<h2 class="modal-title">🎨 ფერის გენერატორი</h2>
+
+<div
+class="color-preview"
+id="colorPreview">
+#7C5CFF
+</div>
+
+<button class="btn"
+onclick="generateColor()">
+ახალი ფერი
+</button>
+
+<div class="result" id="colorCode">
+#7C5CFF
+</div>
+
+`;
+
+}
+
+
+/* RANDOM */
+
+if(type==="random"){
+
+content=`
+
+<h2 class="modal-title">🎲 Random Generator</h2>
+
+<input
+class="input"
+id="randomMin"
+type="number"
+placeholder="მინიმუმი"
+value="1"
+>
+
+<input
+class="input"
+id="randomMax"
+type="number"
+placeholder="მაქსიმუმი"
+value="100"
+>
+
+<button class="btn" onclick="randomNumber()">
+გენერირება
+</button>
+
+<div
+class="big-result"
+id="randomResult">
+?
+</div>
+
+`;
+
+}
+
+
+/* AGE */
+
+if(type==="age"){
+
+content=`
+
+<h2 class="modal-title">🎂 ასაკის კალკულატორი</h2>
+
+<label>დაბადების თარიღი</label>
+
+<input
+class="input"
+id="birthDate"
+type="date"
+>
+
+<button class="btn"
+onclick="calculateAge()">
+გამოთვლა
+</button>
+
+<div
+class="result"
+id="ageResult">
+</div>
+
+`;
+
+}
+
+
+/* EXPENSE */
+
+if(type==="expense"){
+
+content=`
+
+<h2 class="modal-title">💰 ხარჯების მენეჯერი</h2>
+
+<div
+class="expense-total"
+id="expenseTotal">
+სულ: 0 ₾
+</div>
+
+<input
+class="input"
+id="expenseName"
+placeholder="რისთვის დახარჯე?"
+>
+
+<input
+class="input"
+id="expenseAmount"
+type="number"
+placeholder="თანხა"
+>
+
+<button class="btn"
+onclick="addExpense()">
+დამატება
+</button>
+
+<div
+class="expense-list"
+id="expenseList">
+</div>
+
+`;
+
+}
+
+
+document.getElementById("modalContent").innerHTML=content;
+
+document.getElementById("modal").classList.add("active");
+
+if(type==="todo"){
+renderTodos();
+}
+
+if(type==="expense"){
+renderExpenses();
+}
+
+}
+
+
+/* CLOSE */
+
+function closeTool(){
+
+document.getElementById("modal")
+.classList.remove("active");
+
+pauseTimer();
+
+}
+
+
+/* CALCULATOR */
+
+let calc="";
+
+function calcInput(value){
+
+calc+=value;
+
+document.getElementById("calcDisplay").value=calc;
+
+}
+
+function clearCalc(){
+
+calc="";
+
+document.getElementById("calcDisplay").value="";
+
+}
+
+function calculate(){
+
+try{
+
+calc=String(Function(
+"return "+calc
+)());
+
+document.getElementById("calcDisplay").value=calc;
+
+}catch{
+
+document.getElementById("calcDisplay").value="Error";
+
+calc="";
+
+}
+
+}
+
+
+/* CURRENCY */
+
+function convertCurrency(){
+
+let amount=parseFloat(
+document.getElementById("currencyAmount").value
+);
+
+let from=
+document.getElementById("currencyFrom").value;
+
+let to=
+document.getElementById("currencyTo").value;
+
+
+/*
+საორიენტაციო კურსები.
+რეალური კურსისთვის შეგიძლია მომავალში API დავამატოთ.
+*/
+
+let rates={
+GEL:1,
+USD:2.70,
+EUR:3.17,
+GBP:3.65
+};
+
+if(isNaN(amount)){
+
+document.getElementById("currencyResult").innerText=
+"შეიყვანე თანხა.";
+
+return;
+
+}
+
+let result=(amount*rates[from])/rates[to];
+
+document.getElementById("currencyResult").innerHTML=
+"<b>"+amount+" "+from+
+"</b> ≈ <b>"+
+result.toFixed(2)+" "+to+
+"</b>";
+
+}
+
+
+/* UNITS */
+
+function convertUnits(){
+
+let value=parseFloat(
+document.getElementById("unitValue").value
+);
+
+let type=
+document.getElementById("unitType").value;
+
+if(isNaN(value)){
+
+document.getElementById("unitResult").innerText=
+"შეიყვანე რიცხვი.";
+
+return;
+
+}
+
+let result;
+
+if(type==="km-m")
+result=value*1000;
+
+if(type==="m-km")
+result=value/1000;
+
+if(type==="kg-g")
+result=value*1000;
+
+if(type==="g-kg")
+result=value/1000;
+
+if(type==="cm-m")
+result=value/100;
+
+if(type==="m-cm")
+result=value*100;
+
+if(type==="c-f")
+result=(value*9/5)+32;
+
+if(type==="f-c")
+result=(value-32)*5/9;
+
+document.getElementById("unitResult").innerHTML=
+"<b>"+result+"</b>";
+
+}
+
+
+/* POMODORO */
+
+let timerSeconds=25*60;
+let timerInterval=null;
+
+function updateTimer(){
+
+let minutes=Math.floor(timerSeconds/60);
+
+let seconds=timerSeconds%60;
+
+document.getElementById("timer").innerText=
+String(minutes).padStart(2,"0")
++
+":"
++
+String(seconds).padStart(2,"0");
+
+}
+
+function startTimer(){
+
+if(timerInterval)return;
+
+timerInterval=setInterval(()=>{
+
+if(timerSeconds>0){
+
+timerSeconds--;
+
+updateTimer();
+
+}else{
+
+clearInterval(timerInterval);
+
+timerInterval=null;
+
+alert("დრო დასრულდა! 🎉");
+
+}
+
+},1000);
+
+}
+
+function pauseTimer(){
+
+clearInterval(timerInterval);
+
+timerInterval=null;
+
+}
+
+function resetTimer(){
+
+pauseTimer();
+
+timerSeconds=25*60;
+
+updateTimer();
+
+}
+
+
+/* TODO */
+
+let todos=
+JSON.parse(
+localStorage.getItem("usefulboxTodos") || "[]"
+);
+
+function addTodo(){
+
+let input=
+document.getElementById("todoInput");
+
+let text=input.value.trim();
+
+if(!text)return;
+
+todos.push({
+text:text,
+done:false
+});
+
+input.value="";
+
+saveTodos();
+
+renderTodos();
+
+}
+
+function saveTodos(){
+
+localStorage.setItem(
+"usefulboxTodos",
+JSON.stringify(todos)
+);
+
+}
+
+function renderTodos(){
+
+let list=
+document.getElementById("todoList");
+
+if(!list)return;
+
+list.innerHTML="";
+
+todos.forEach((todo,index)=>{
+
+let div=document.createElement("div");
+
+div.className=
+"todo-item"+
+(todo.done?" done":"");
+
+div.innerHTML=`
+
+<div class="todo-left">
+
+<input
+type="checkbox"
+${todo.done?"checked":""}
+onchange="toggleTodo(${index})"
+>
+
+<span>${escapeHTML(todo.text)}</span>
+
+</div>
+
+<button
+class="delete-todo"
+onclick="deleteTodo(${index})">
+✕
+</button>
+
+`;
+
+list.appendChild(div);
+
+});
+
+}
+
+function toggleTodo(index){
+
+todos[index].done=
+!todos[index].done;
+
+saveTodos();
+
+renderTodos();
+
+}
+
+function deleteTodo(index){
+
+todos.splice(index,1);
+
+saveTodos();
+
+renderTodos();
+
+}
+
+
+/* PASSWORD */
+
+function generatePassword(){
+
+let length=parseInt(
+document.getElementById("passwordLength").value
+);
+
+if(length<6)length=6;
+
+if(length>50)length=50;
+
+let chars=
+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
+
+let password="";
+
+for(let i=0;i<length;i++){
+
+password+=
+chars.charAt(
+Math.floor(Math.random()*chars.length)
+);
+
+}
+
+document.getElementById(
+"generatedPassword"
+).value=password;
+
+}
+
+function copyPassword(){
+
+let input=
+document.getElementById("generatedPassword");
+
+if(!input.value)return;
+
+navigator.clipboard.writeText(input.value);
+
+alert("პაროლი დაკოპირდა!");
+
+}
+
+
+/* COLOR */
+
+function generateColor(){
+
+let letters="0123456789ABCDEF";
+
+let color="#";
+
+for(let i=0;i<6;i++){
+
+color+=letters[
+Math.floor(Math.random()*16)
+];
+
+}
+
+document.getElementById("colorPreview")
+.style.background=color;
+
+document.getElementById("colorPreview")
+.innerText=color;
+
+document.getElementById("colorCode")
+.innerText=color;
+
+}
+
+
+/* RANDOM */
+
+function randomNumber(){
+
+let min=parseInt(
+document.getElementById("randomMin").value
+);
+
+let max=parseInt(
+document.getElementById("randomMax").value
+);
+
+if(isNaN(min)||isNaN(max)){
+
+document.getElementById("randomResult")
+.innerText="?";
+
+return;
+
+}
+
+if(min>max){
+
+let temp=min;
+
+min=max;
+
+max=temp;
+
+}
+
+let result=
+Math.floor(
+Math.random()*(max-min+1)
+)+min;
+
+document.getElementById("randomResult")
+.innerText=result;
+
+}
+
+
+/* AGE */
+
+function calculateAge(){
+
+let birth=
+document.getElementById("birthDate").value;
+
+if(!birth){
+
+document.getElementById("ageResult").innerText=
+"აირჩიე დაბადების თარიღი.";
+
+return;
+
+}
+
+let birthDate=new Date(birth);
+
+let today=new Date();
+
+let years=
+today.getFullYear()
+-
+birthDate.getFullYear();
+
+let months=
+today.getMonth()
+-
+birthDate.getMonth();
+
+let days=
+today.getDate()
+-
+birthDate.getDate();
+
+if(days<0){
+
+months--;
+
+let previousMonth=
+new Date(
+today.getFullYear(),
+today.getMonth(),
+0
+);
+
+days+=previousMonth.getDate();
+
+}
+
+if(months<0){
+
+years--;
+
+months+=12;
+
+}
+
+document.getElementById("ageResult").innerHTML=`
+
+შენი ასაკია:
+
+<br><br>
+
+<b style="font-size:24px">
+${years} წელი,
+${months} თვე,
+${days} დღე
+</b>
+
+`;
+
+}
+
+
+/* EXPENSES */
+
+let expenses=
+JSON.parse(
+localStorage.getItem("usefulboxExpenses") || "[]"
+);
+
+function addExpense(){
+
+let name=
+document.getElementById("expenseName")
+.value.trim();
+
+let amount=
+parseFloat(
+document.getElementById("expenseAmount")
+.value
+);
+
+if(!name || isNaN(amount)){
+
+alert("შეავსე ორივე ველი.");
+
+return;
+
+}
+
+expenses.push({
+name:name,
+amount:amount
+});
+
+document.getElementById("expenseName").value="";
+
+document.getElementById("expenseAmount").value="";
+
+saveExpenses();
+
+renderExpenses();
+
+}
+
+function saveExpenses(){
+
+localStorage.setItem(
+"usefulboxExpenses",
+JSON.stringify(expenses)
+);
+
+}
+
+function renderExpenses(){
+
+let list=
+document.getElementById("expenseList");
+
+let total=0;
+
+if(!list)return;
+
+list.innerHTML="";
+
+expenses.forEach((expense,index)=>{
+
+total+=expense.amount;
+
+let div=document.createElement("div");
+
+div.className="expense";
+
+div.innerHTML=`
+
+<span>
+${escapeHTML(expense.name)}
+</span>
+
+<strong>
+${expense.amount.toFixed(2)} ₾
+<button
+onclick="deleteExpense(${index})"
+style="
+margin-left:10px;
+border:none;
+background:none;
+color:var(--danger);
+cursor:pointer;">
+✕
+</button>
+</strong>
+
+`;
+
+list.appendChild(div);
+
+});
+
+document.getElementById("expenseTotal")
+.innerText=
+"სულ: "+total.toFixed(2)+" ₾";
+
+}
+
+function deleteExpense(index){
+
+expenses.splice(index,1);
+
+saveExpenses();
+
+renderExpenses();
+
+}
+
+
+/* SECURITY */
+
+function escapeHTML(text){
+
+let div=document.createElement("div");
+
+div.textContent=text;
+
+return div.innerHTML;
+
+}
+
+
+/* CLOSE MODAL ON BACKGROUND */
+
+document.getElementById("modal")
+.addEventListener("click",function(e){
+
+if(e.target===this){
+
+closeTool();
+
+}
+
+});
+
+
+/* ESC KEY */
+
+document.addEventListener("keydown",function(e){
+
+if(e.key==="Escape"){
+
+closeTool();
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
